@@ -43,7 +43,7 @@ services:
     environment:
       - JENKINS_USERNAME=root
       - JENKINS_PASSWORD=Rancher123
-      - CATTLE_UR=http://47.52.64.92:8080/v2
-      - JENKINS_ADDRESS=http://47.52.64.92:8081
+      - CATTLE_URL=http://47.52.64.92:8080/v2
+      - JENKINS_ADDRESS=jenkins-master:8080
       - CATTLE_ACCESS_KEY=B18A14F54899D6D4ADF2
       - CATTLE_SECRET_KEY=2RTNfZMGGAMHC6UBPmaDdyWuywFovSvzHh4MKPsy

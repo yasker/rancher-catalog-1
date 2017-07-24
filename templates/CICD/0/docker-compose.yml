@@ -35,7 +35,7 @@ services:
     environment:
       - JENKINS_USERNAME=root
       - JENKINS_PASSWORD=Rancher123
-      - JENKINS_MASTER=jenkins-master:50000
+      - JENKINS_MASTER=http://jenkins-master:50000
   pipeline-server:
     image: lawr/pipeline:5054
     restart: always
@@ -44,6 +44,6 @@ services:
       - JENKINS_USERNAME=root
       - JENKINS_PASSWORD=Rancher123
       - CATTLE_URL=http://47.52.64.92:8080/v2
-      - JENKINS_ADDRESS=jenkins-master:8080
+      - JENKINS_ADDRESS=http://jenkins-master:8080
       - CATTLE_ACCESS_KEY=B18A14F54899D6D4ADF2
       - CATTLE_SECRET_KEY=2RTNfZMGGAMHC6UBPmaDdyWuywFovSvzHh4MKPsy

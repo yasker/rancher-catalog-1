@@ -1,5 +1,4 @@
-version: '2'
-catalog:
+.catalog:
   name: CICD
     # Name of the versioned template of the Catalog Entry
   version: 1.0.0
@@ -19,14 +18,13 @@ catalog:
       required: true
       label: "Jenkins Slave Port"
       description: "Public Port"
-services:
-  drone-server:
-    scale: 1
-    health_check:
-      port: 8000
-      interval: 2000
-      unhealthy_threshold: 3
-      strategy: recreate
-      request_line: GET /ping HTTP/1.0
-      healthy_threshold: 2
-      response_timeout: 2000
+drone-server:
+  scale: 1
+  health_check:
+    port: 8000
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    request_line: GET /ping HTTP/1.0
+    healthy_threshold: 2
+    response_timeout: 2000

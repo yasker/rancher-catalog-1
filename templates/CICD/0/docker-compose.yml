@@ -6,7 +6,7 @@
 #     - /var/jenkins_home
 #     - /usr/bin/docker:/usr/bin/docker
 #     - /var/run/docker.sock:/var/run/docker.sock
-  entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
+#  entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
 jenkins-master:
   image: jenkinsci/jenkins:lts
   ports:

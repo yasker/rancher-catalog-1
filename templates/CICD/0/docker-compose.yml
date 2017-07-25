@@ -10,9 +10,8 @@ jenkins-master:
   volumes:
     - /var/jenkins_home
 jenkins-slave:
-  image: rancher/jenkins-slave:latest
+  image: rancher/jenkins-slave
   restart: always
-  depends_on: [ jenkins-master ]
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   environment:

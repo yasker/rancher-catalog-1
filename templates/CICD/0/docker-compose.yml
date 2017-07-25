@@ -1,48 +1,46 @@
-version: '2'
-services:
-  jenkins-data-volume:
-    image: busybox
-    labels:
-      io.rancher.container.start_once: 'true'
-    volumes:
-      - /var/jenkins_home
-      - /usr/bin/docker:/usr/bin/docker
-      - /var/run/docker.sock:/var/run/docker.sock
-    entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
-  jenkins-master:
-    image: jenkinsci/jenkins:lts
-    ports:
-      - ${JENKINS_PORT}:8080
-      - ${JENKINS_SLAVEPORT}:50000
-    restart: always
-    environment:
-      - JENKINS_SLAVE_AGENT_PORT=50000
-      - JENKINS_HOME=/var/jenkins_home
-    volumes:
-    volumes_from:
-      - jenkins-data-volume
-    labels:
-      io.rancher.sidekicks: jenkins-data-volume
-  jenkins-slave:
-    image: rancher/jenkins-slave:latest
-    restart: always
-    depends_on: [ jenkins-master ]
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    volumes_from:
-      - jenkins-data-volume
-    environment:
-      - JENKINS_USERNAME=root
-      - JENKINS_PASSWORD=Rancher123
-      - JENKINS_MASTER=http://jenkins-master:50000
-  pipeline-server:
-    image: lawr/pipeline:5054
-    restart: always
-    depends_on: [ jenkins-master ]
-    environment:
-      - JENKINS_ADDRESS=http://jenkins-master:8080
-      - JENKINS_USERNAME=root
-      - JENKINS_PASSWORD=Rancher123
-    labels:
-      io.rancher.container.create_agent: true
-      io.rancher.container.agent.role: environment
+jenkins-data-volume:
+  image: busybox
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - /var/jenkins_home
+    - /usr/bin/docker:/usr/bin/docker
+    - /var/run/docker.sock:/var/run/docker.sock
+  entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
+jenkins-master:
+  image: jenkinsci/jenkins:lts
+  ports:
+    - ${JENKINS_PORT}:8080
+    - ${JENKINS_SLAVEPORT}:50000
+  restart: always
+  environment:
+    - JENKINS_SLAVE_AGENT_PORT=50000
+    - JENKINS_HOME=/var/jenkins_home
+  volumes:
+  volumes_from:
+    - jenkins-data-volume
+  labels:
+    io.rancher.sidekicks: jenkins-data-volume
+jenkins-slave:
+  image: rancher/jenkins-slave:latest
+  restart: always
+  depends_on: [ jenkins-master ]
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  volumes_from:
+    - jenkins-data-volume
+  environment:
+    - JENKINS_USERNAME=root
+    - JENKINS_PASSWORD=Rancher123
+    - JENKINS_MASTER=http://jenkins-master:50000
+pipeline-server:
+  image: lawr/pipeline:5054
+  restart: always
+  depends_on: [ jenkins-master ]
+  environment:
+    - JENKINS_ADDRESS=http://jenkins-master:8080
+    - JENKINS_USERNAME=root
+    - JENKINS_PASSWORD=Rancher123
+  labels:
+    io.rancher.container.create_agent: true
+    io.rancher.container.agent.role: environment

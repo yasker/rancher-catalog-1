@@ -2,7 +2,6 @@ version: '2'
 services:
   jenkins-data-volume:
     image: busybox
-    command: /bin/true
     labels:
       io.rancher.container.start_once: 'true'
     volumes:

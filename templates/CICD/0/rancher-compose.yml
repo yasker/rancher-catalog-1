@@ -18,7 +18,7 @@
       required: true
       label: "Jenkins Slave Port"
       description: "Public Port"
-drone-server:
+jenkins-master:
   scale: 1
   health_check:
     port: 8000

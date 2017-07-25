@@ -9,16 +9,16 @@ jenkins-master:
     - JENKINS_HOME=/var/jenkins_home
   volumes:
     - /var/jenkins_home
-# jenkins-slave:
-#   image: rancher/jenkins-slave:latest
-#   restart: always
-#   depends_on: [ jenkins-master ]
-#   volumes:
-#     - /var/run/docker.sock:/var/run/docker.sock
-#   environment:
-#     - JENKINS_USERNAME=root
-#     - JENKINS_PASSWORD=Rancher123
-#     - JENKINS_MASTER=http://jenkins-master:50000
+jenkins-slave:
+  image: rancher/jenkins-slave:latest
+  restart: always
+  depends_on: [ jenkins-master ]
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  environment:
+    - JENKINS_USERNAME=root
+    - JENKINS_PASSWORD=Rancher123
+    - JENKINS_MASTER=http://jenkins-master:50000
 # pipeline-server:
 #   image: lawr/pipeline:5054
 #   restart: always

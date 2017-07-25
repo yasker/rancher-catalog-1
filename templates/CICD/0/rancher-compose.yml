@@ -28,3 +28,13 @@ jenkins-master:
     request_line: GET /ping HTTP/1.0
     healthy_threshold: 2
     response_timeout: 2000
+# jenkins-master:
+#   scale: 1
+#   health_check:
+#     port: 8000
+#     interval: 2000
+#     unhealthy_threshold: 3
+#     strategy: recreate
+#     request_line: GET /ping HTTP/1.0
+#     healthy_threshold: 2
+#     response_timeout: 2000

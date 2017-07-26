@@ -10,7 +10,7 @@ jenkins-master:
   volumes_from:
     - jenkins-boot
   labels:
-    io.rancher.sidekicks: jenkins-boot
+    io.rancher.sidekicks: jenkins-bootin
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2
   volumes:
@@ -19,7 +19,7 @@ jenkins-boot:
     - ${volume_work}:/var/jenkins_home
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "jenkins:jenkins", "/var/jenkins_home"]
+  entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
 
 # pipeline-server:
 #   image: lawr/pipeline:5054

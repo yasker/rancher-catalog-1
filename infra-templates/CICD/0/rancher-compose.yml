@@ -18,6 +18,11 @@
       required: true
       label: "Jenkins Slave Port"
       description: "Public Port"
+    - variable: "volume_work"
+      type: "int"
+      required: true
+      label: "Jenkins Backup Volume"
+      description: "***:/var/jenkins_home"
 # jenkins-master:
 #   scale: 1
 #   health_check:

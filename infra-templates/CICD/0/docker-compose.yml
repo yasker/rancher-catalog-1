@@ -10,7 +10,7 @@ jenkins-master:
   volumes_from:
     - jenkins-boot
   labels:
-    io.rancher.sidekicks: jenkins-bootin
+    io.rancher.sidekicks: jenkins-boot
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2
   volumes:

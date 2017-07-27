@@ -1,5 +1,5 @@
 jenkins-master:
-  image: jenkins/jenkins:2.60.2
+  image: reg.cnrancher.com/pipeline/jenkins:2.60.2
   ports:
     - ${JENKINS_PORT}:8080
     - ${JENKINS_SLAVEPORT}:50000
@@ -14,12 +14,9 @@ jenkins-master:
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2
   volumes:
-    - /var/jenkins_home
-  volumes:
     - ${volume_work}:/var/jenkins_home
   labels:
     io.rancher.container.start_once: true
-  entrypoint: ["chown", "-R", "1000:1000", "/var/jenkins_home"]
 
 pipeline-server:
   image: lawr/pipeline:5054

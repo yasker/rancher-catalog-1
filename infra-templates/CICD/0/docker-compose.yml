@@ -9,6 +9,8 @@ jenkins-master:
     - JENKINS_HOME=/var/jenkins_home
   volumes_from:
     - jenkins-boot
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
   labels:
     io.rancher.sidekicks: jenkins-boot
 jenkins-boot:

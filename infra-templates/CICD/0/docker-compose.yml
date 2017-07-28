@@ -16,7 +16,7 @@ jenkins-master:
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2
   volumes:
-    - ${volume_work}:/var/jenkins_home
+    - ${volume_work}:/var/jenkins_home/workspace
   labels:
     io.rancher.container.start_once: true
 

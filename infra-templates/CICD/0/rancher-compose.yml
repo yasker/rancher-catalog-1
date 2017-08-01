@@ -18,10 +18,20 @@
       required: true
       label: "Jenkins Slave Port"
       description: "Public Port"
-    - variable: "volume_work"
+    - variable: "VOLUME_DIR"
       type: "string"
-      label: "Jenkins Backup Volume"
+      label: "Jenkins Home Volume"
       description: "***:/var/jenkins_home"
+    - variable: "HOST_NAME"
+      required: true
+      type: "string"
+      label: "Webhook Host Name"
+      description: "Used for accept github webhook"
+    - variable: "WEBHOOK_PORT"
+      type: "int"
+      required: true
+      label: "Webhook Public Port"
+      description: "Used for webhook public port"
 # jenkins-master:
 #   scale: 1
 #   health_check:

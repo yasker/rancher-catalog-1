@@ -16,7 +16,7 @@ jenkins-master:
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2
   volumes:
-    - ${volume_work}:/var/jenkins_home/workspace
+    - ${VOLUME_DIR}:/var/jenkins_home
   labels:
     io.rancher.container.start_once: true
 
@@ -28,6 +28,9 @@ pipeline-server:
     - JENKINS_ADDRESS=http://jenkins-master:8080
     - JENKINS_USER=admin
     - JENKINS_TOKEN=admin
+    - HOST_NAME=${HOST_NAME}
+  port:
+    - ${WEBHOOK_PORT}:60081
   labels:
     io.rancher.container.create_agent: true
     io.rancher.container.agent.role: environment

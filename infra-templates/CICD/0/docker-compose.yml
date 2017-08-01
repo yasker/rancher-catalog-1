@@ -21,7 +21,7 @@ jenkins-boot:
     io.rancher.container.start_once: true
 
 pipeline-server:
-  image: lawr/pipeline:5054
+  image: lawr/pipeline:5057
   links:
     - jenkins-master
   environment:

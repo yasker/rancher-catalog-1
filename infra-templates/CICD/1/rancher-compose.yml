@@ -7,7 +7,7 @@
     # Description of the versioned template of the Catalog Entry
   upgrade_from: 1.0.0
     # The previous versions that this template can be upgraded from
-  questions: 
+  questions:
     - variable: "JENKINS_PORT"
       type: "string"
       required: true
@@ -25,7 +25,7 @@
     - variable: "HOST_NAME"
       required: true
       type: "string"
-      label: "Webhook Host Name"
+      label: "Webhook URL"
       description: "Used for accept github webhook"
     - variable: "WEBHOOK_PORT"
       type: "int"

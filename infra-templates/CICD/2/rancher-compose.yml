@@ -5,7 +5,7 @@
     # Version of the versioned template of the Catalog Entry
   description: rancher compose desc
     # Description of the versioned template of the Catalog Entry
-  upgrade_from: 1.0.0
+  upgrade_from: "<=3.0.0"
     # The previous versions that this template can be upgraded from
   questions:
     - variable: "JENKINS_PORT"

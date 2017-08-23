@@ -1,0 +1,20 @@
+.catalog:
+  name: ui_v2-cicd
+    # Name of the versioned template of the Catalog Entry
+  version: 8fb82bc
+    # Version of the versioned template of the Catalog Entry
+  description: rancher compose desc
+    # Description of the versioned template of the Catalog Entry
+  upgrade_from: "*"
+    # The previous versions that this template can be upgraded from
+  questions:
+    - variable: "PORT"
+      type: "string"
+      required: true
+      label: "Port"
+      description: "Public Port"
+    - variable: "RANCHER"
+      type: "string"
+      required: true
+      label: "RANCHER"
+      description: "Rancher server URL"

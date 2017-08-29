@@ -36,3 +36,12 @@
       label: "Webhook Public Port"
       default: 8084
       description: "Used for webhook public port"
+pipeline-lb:
+  scale: 1
+  lb_config:
+    port_rules:
+    - source_port: 80
+      target_port: 60081
+      service: pipeline-server
+      # hostname
+      # path

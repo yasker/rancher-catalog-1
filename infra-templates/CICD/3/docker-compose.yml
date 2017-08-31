@@ -1,8 +1,5 @@
 jenkins-master:
   image: reg.cnrancher.com/pipeline/jenkins:2.60.2_tool
-#  ports:
-#    - ${JENKINS_PORT}:8080
-#    - ${JENKINS_SLAVEPORT}:50000
   restart: always
   environment:
     - JENKINS_SLAVE_AGENT_PORT=50000
@@ -28,6 +25,7 @@ jenkins-slave:
     - jenkins-master
   environment:
     - SLAVE_EXECUTORS=${EXECUTORS}
+    - JENKINS_MASTER=http://jenkins-master:8080
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   labels:

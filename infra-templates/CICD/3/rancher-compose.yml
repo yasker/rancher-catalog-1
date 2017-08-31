@@ -5,31 +5,32 @@ catalog:
   description: "rancher compose desc"
   upgrade_from: "<=3.0.0"
   questions:
-    - variable: "HOST_URL"
+    - variable: HOST_URL
       type: "string"
       label: "Pipeline Server Host URL"
       description: "Intended URL to access pipeline server, e.g. http://ci.mycompany.com."
-    - variable: "HOST_PORT"
+    - variable: HOST_PORT
       required: true
       type: "int"
       default: 8084
       label: "Pipeline server Host Port"
       description: "Public port for pipeline server that will be exposed on service creation."
-    - variable: "JENKINS_DIR"
+    - variable: SLAVES
+      type: "int"
+      default: "1"
+      label: "# of slaves"
+      description: "How many jenkins slaves to run ci tasks."
+    - variable: EXECUTORS
+      type: "int"
+      default: "2"
+      label: "# of executors"
+      description: "How many executors on a jenkins slave"
+    - variable: JENKINS_DIR
       default: /var/jenkins_home
       type: "string"
       label: "Jenkins Home Path"
       description: "Path to store jenkins data on the host that jenkins master runs"
-    - variable: "SLAVES"
-      type: "int"
-      default: 1
-      label: "# of slaves"
-      description: "How many jenkins slaves to run ci tasks."
-    - variable: "EXECUTORS"
-      type: "int"
-      default: 2
-      label: "# of executors"
-      description: "How many executors on a jenkins slave"
-# services:
-#  jenkins-slave:
-#    scale: "${SLAVES}"
+services:
+  jenkinsslave:
+    scale: ${SLAVES}
+

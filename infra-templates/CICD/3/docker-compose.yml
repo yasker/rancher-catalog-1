@@ -21,7 +21,18 @@ jenkins-boot:
     - ${VOLUME_DIR}:/var/jenkins_home
   labels:
     io.rancher.container.start_once: true
-
+jenkins-slave:
+  image: reg.cnrancher.com/pipeline/jenkins-slave
+  restart: always
+  links:
+    - jenkins-master
+  environment:
+    - SLAVE_EXECUTORS: ${EXECUTORS}
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  labels:
+    io.rancher.container.create_agent: true
+    io.rancher.container.agent.role: environment
 pipeline-server:
   image: reg.cnrancher.com/rancher/pipeline:5071
   links:
@@ -32,11 +43,7 @@ pipeline-server:
     - JENKINS_TOKEN=admin
     - HOST_NAME=${HOST_NAME}
   ports:
-    - ${WEBHOOK_PORT}:60081
+    - ${HOST_PORT}:60081
   labels:
     io.rancher.container.create_agent: true
     io.rancher.container.agent.role: environment
-pipeline-lb:
-  image: rancher/lb-service-haproxy:v0.7.9
-  ports:
-  - 80

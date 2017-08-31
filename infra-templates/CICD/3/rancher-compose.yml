@@ -8,40 +8,28 @@
   upgrade_from: "<=3.0.0"
     # The previous versions that this template can be upgraded from
   questions:
-    - variable: "JENKINS_PORT"
-      type: "int"
+    - variable: "HOST_URL"
+      type: "string"
+      label: "Pipeline Server Host URL"
+      description: "Intended URL to access pipeline server, e.g. http://ci.mycompany.com."
+    - variable: "HOST_PORT"
       required: true
-      default: 8081
-      label: "Jenkins Public Port"
-      description: "Jenkins Public Port"
-    - variable: "JENKINS_SLAVEPORT"
       type: "int"
-      default: 50000
-      required: true
-      label: "Jenkins Slave Port"
-      description: "Public Port"
-    - variable: "VOLUME_DIR"
+      default: 8084
+      label: "Pipeline server Host Port"
+      description: "Public port for pipeline server that will be exposed on service creation."
+    - variable: "JENKINS_DIR"
       default: /var/jenkins_home
       type: "string"
-      label: "Jenkins Home Volume"
-      description: "***:/var/jenkins_home"
-    - variable: "HOST_NAME"
-      required: true
-      type: "string"
-      label: "Webhook URL"
-      description: "Used for accept github webhook"
-    - variable: "WEBHOOK_PORT"
+      label: "Jenkins Home Path"
+      description: "Path to store jenkins data on the host that jenkins master runs"
+    - variable: "SLAVES"
       type: "int"
-      required: true
-      label: "Webhook Public Port"
-      default: 8084
-      description: "Used for webhook public port"
-pipeline-lb:
-  scale: 1
-  lb_config:
-    port_rules:
-    - source_port: 80
-      target_port: 60081
-      service: pipeline-server
-      # hostname
-      # path
+      label: "# of slaves"
+      description: "How many jenkins slaves to run ci tasks."
+    - variable: "EXECUTORS"
+      type: "int"
+      label: "# of executors"
+      description: "How many executors on a jenkins slave"
+jenkins-slave:
+  scale: ${slave_scale}

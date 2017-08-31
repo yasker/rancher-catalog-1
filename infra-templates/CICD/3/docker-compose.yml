@@ -1,8 +1,8 @@
 jenkins-master:
   image: reg.cnrancher.com/pipeline/jenkins:2.60.2_tool
-  ports:
-    - ${JENKINS_PORT}:8080
-    - ${JENKINS_SLAVEPORT}:50000
+#  ports:
+#    - ${JENKINS_PORT}:8080
+#    - ${JENKINS_SLAVEPORT}:50000
   restart: always
   environment:
     - JENKINS_SLAVE_AGENT_PORT=50000
@@ -18,7 +18,7 @@ jenkins-master:
 jenkins-boot:
   image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2_1
   volumes:
-    - ${VOLUME_DIR}:/var/jenkins_home
+    - ${JENKINS_DIR}:/var/jenkins_home
   labels:
     io.rancher.container.start_once: true
 jenkins-slave:
@@ -41,7 +41,7 @@ pipeline-server:
     - JENKINS_ADDRESS=http://jenkins-master:8080
     - JENKINS_USER=admin
     - JENKINS_TOKEN=admin
-    - HOST_NAME=${HOST_NAME}
+    - HOST_NAME=${HOST_URL}
   ports:
     - ${HOST_PORT}:60081
   labels:

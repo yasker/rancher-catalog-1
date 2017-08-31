@@ -32,4 +32,4 @@
       label: "# of executors"
       description: "How many executors on a jenkins slave"
 jenkins-slave:
-  scale: ${slave_scale}
+  scale: ${SLAVES}

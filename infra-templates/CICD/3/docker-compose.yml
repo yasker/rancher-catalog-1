@@ -27,7 +27,7 @@ jenkins-slave:
   links:
     - jenkins-master
   environment:
-    - SLAVE_EXECUTORS: ${EXECUTORS}
+    - SLAVE_EXECUTORS=${EXECUTORS}
   volumes:
     - /var/run/docker.sock:/var/run/docker.sock
   labels:

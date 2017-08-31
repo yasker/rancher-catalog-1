@@ -17,7 +17,7 @@ catalog:
       description: "Public port for pipeline server that will be exposed on service creation."
     - variable: SLAVES
       type: "int"
-      default: "1"
+      default: "0"
       label: "# of slaves"
       description: "How many jenkins slaves to run ci tasks."
     - variable: EXECUTORS
@@ -25,12 +25,21 @@ catalog:
       default: "2"
       label: "# of executors"
       description: "How many executors on a jenkins slave"
+    - variable: "JENKINS_PORT"
+      type: "int"
+      label: "Jenkins Public Port"
+      description: "Jenkins Public Port"
+    - variable: "JENKINS_SLAVE_PORT"
+      type: "int"
+      label: "Jenkins Slave Port"
+      description: "Public Port"
     - variable: JENKINS_DIR
       default: /var/jenkins_home
       type: "string"
       label: "Jenkins Home Path"
       description: "Path to store jenkins data on the host that jenkins master runs"
 services:
-  jenkinsslave:
+#{{- if ne .Values.SLAVES "0" }} 
+  jenkins-slave:
     scale: ${SLAVES}
-
+#{{- end }} 

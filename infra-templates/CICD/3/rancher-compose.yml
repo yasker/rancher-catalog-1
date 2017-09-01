@@ -28,11 +28,11 @@ catalog:
     - variable: JENKINS_PORT
       type: "int"
       label: "Jenkins Public Port"
-      description: "Jenkins Public Port"
+      description: "Public port for Jenkins master's http port."
     - variable: JENKINS_SLAVE_PORT
       type: "int"
       label: "Jenkins Slave Port"
-      description: "Public Port"
+      description: "Public Port for Jenkins master's agent port"
     - variable: JENKINS_DIR
       default: /var/jenkins_home
       type: "string"

@@ -38,6 +38,17 @@ catalog:
       type: "string"
       label: "Jenkins Home Path"
       description: "Path to store jenkins data on the host that jenkins master runs"
+    - variable: VOLUME_DRIVER 
+      description: "Volume driver to use with this service"
+      label: "Volume driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+        - rancher-nfs
+        - rancher-efs
+        - rancher-ebs
     - variable: HOST_LABEL
       label: "Host with Label to put pipeline components on"
       description: |

@@ -39,7 +39,7 @@ catalog:
 #      label: "Jenkins Home Path"
 #      description: "Path to store jenkins data on the host that jenkins master runs"
     - variable: VOLUME_DRIVER 
-      description: "Volume driver to use with this service"
+      description: "Volume driver to use for jenkins home volume"
       label: "Volume driver"
       required: true
       default: "local"

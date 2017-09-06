@@ -25,19 +25,19 @@ catalog:
       default: "2"
       label: "# of executors"
       description: "How many executors on a jenkins slave"
-# - variable: JENKINS_PORT
-#      type: "int"
-#      label: "Jenkins Public Port"
-#      description: "Public port for Jenkins master's http port."
-#    - variable: JENKINS_SLAVE_PORT
-#      type: "int"
-#      label: "Jenkins Slave Port"
-#      description: "Public Port for Jenkins master's agent port"
-#    - variable: JENKINS_DIR
-#      default: /var/jenkins_home
-#      type: "string"
-#      label: "Jenkins Home Path"
-#      description: "Path to store jenkins data on the host that jenkins master runs"
+    - variable: JENKINS_PORT
+      type: "int"
+      label: "Jenkins Public Port"
+      description: "Public port for Jenkins master's http port."
+    - variable: JENKINS_SLAVE_PORT
+      type: "int"
+      label: "Jenkins Slave Port"
+      description: "Public Port for Jenkins master's agent port"
+    - variable: JENKINS_DIR
+      default: /var/jenkins_home
+      type: "string"
+      label: "Jenkins Home Path"
+      description: "Path to store jenkins data on the host that jenkins master runs"
     - variable: VOLUME_DRIVER 
       description: "Volume driver to use for jenkins home volume"
       label: "Volume driver"

@@ -1,0 +1,61 @@
+version: '2'
+catalog:
+  name: CICD
+  version: 4.0.1
+  description: "rancher compose desc"
+  upgrade_from: "<=3.0.0"
+  questions:
+    - variable: HOST_URL
+      type: "string"
+      label: "Pipeline Server Host URL"
+      description: "Intended URL to access pipeline server, e.g. http://ci.mycompany.com."
+    - variable: HOST_PORT
+      required: true
+      type: "int"
+      default: 8084
+      label: "Pipeline server Host Port"
+      description: "Public port for pipeline server that will be exposed on service creation."
+    - variable: SLAVES
+      type: "int"
+      default: "0"
+      label: "# of slaves"
+      description: "How many jenkins slaves to run ci tasks."
+    - variable: EXECUTORS
+      type: "int"
+      default: "2"
+      label: "# of executors"
+      description: "How many executors on a jenkins slave"
+    - variable: JENKINS_PORT
+      type: "int"
+      label: "Jenkins Public Port"
+      description: "Public port for Jenkins master's http port."
+    - variable: JENKINS_SLAVE_PORT
+      type: "int"
+      label: "Jenkins Slave Port"
+      description: "Public Port for Jenkins master's agent port"
+    - variable: JENKINS_DIR
+      default: /var/jenkins_home
+      type: "string"
+      label: "Jenkins Home Path"
+      description: "Path to store jenkins data on the host that jenkins master runs"
+    - variable: VOLUME_DRIVER 
+      description: "Volume driver to use for jenkins home volume"
+      label: "Volume driver"
+      required: true
+      default: "local"
+      type: enum
+      options:
+        - local
+    - variable: HOST_LABEL
+      label: "Host with Label to put pipeline components on"
+      description: |
+        Run pipeline components on Host with specific labels. 
+        Example: 'pipeline=true'
+      required: false
+      default: ""
+      type: "string"
+services:
+#{{- if ne .Values.SLAVES "0" }} 
+  jenkins-slave:
+    scale: ${SLAVES}
+#{{- end }} 

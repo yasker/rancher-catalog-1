@@ -1,0 +1,75 @@
+version: '2'
+services:
+  jenkins-master:
+    image: reg.cnrancher.com/pipeline/jenkins:2.60.2_tool
+    {{- if or (ne .Values.JENKINS_PORT "") (ne .Values.JENKINS_SLAVE_PORT "") }}
+    ports:
+      {{- if ne .Values.JENKINS_PORT "" }}
+      - ${JENKINS_PORT}:8080
+      {{- end }}
+      {{- if ne .Values.JENKINS_SLAVE_PORT "" }}
+      - ${JENKINS_SLAVE_PORT}:50000
+      {{- end }}
+    {{- end }}
+    restart: always
+    environment:
+      - JENKINS_SLAVE_AGENT_PORT=50000
+      - JENKINS_HOME=/var/jenkins_home
+    volumes_from:
+      - jenkins-boot
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    labels:
+      io.rancher.sidekicks: jenkins-boot
+      io.rancher.container.create_agent: true
+      io.rancher.container.agent.role: environment
+  {{- if ne .Values.HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+  {{- end }}
+  jenkins-boot:
+    image: reg.cnrancher.com/pipeline/jenkins_home:2.60.2_2
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    labels:
+      io.rancher.container.start_once: true
+  {{- if ne .Values.SLAVES "0" }}
+  jenkins-slave:
+    image: reg.cnrancher.com/pipeline/jenkins-slave
+    restart: always
+    links:
+      - jenkins-master
+    environment:
+      - SLAVE_EXECUTORS=${EXECUTORS}
+      - JENKINS_MASTER=http://jenkins-master:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+    labels:
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+      io.rancher.container.create_agent: true
+      io.rancher.container.agent.role: environment
+  {{- if ne .Values.HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+  {{- end }}
+  {{- end }}
+  pipeline-server:
+    image: reg.cnrancher.com/rancher/pipeline:dev
+    restart: always
+    links:
+      - jenkins-master
+    environment:
+      - JENKINS_ADDRESS=http://jenkins-master:8080
+      - JENKINS_USER=admin
+      - JENKINS_TOKEN=admin
+      - HOST_NAME=${HOST_URL}
+    ports:
+      - ${HOST_PORT}:60081
+    labels:
+      io.rancher.container.create_agent: true
+      io.rancher.container.agent.role: environment
+  {{- if ne .Values.HOST_LABEL "" }}
+      io.rancher.scheduler.affinity:host_label: ${HOST_LABEL}
+  {{- end }}
+volumes:
+  jenkins_home:
+    driver: ${VOLUME_DRIVER}
